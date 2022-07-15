@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %}
+
+    <section>
+        <a href="{{ path('admin_insert_author') }}">add a book</a>
+    </section>
+
+    {% for author in authors %}
+
+        <h1>{{ author.firstName }}</h1>
+        <a href="{{ path('admin_show_author', {'id': author.id }) }}">see the book</a>
+        <a href="{{ path('admin_update_author', {'id': author.id }) }}">Edit the book</a>
+        <a href="{{ path('admin_delete_author', {'id': author.id }) }}">delete this book</a>
+    {% endfor %}
+
+{% endblock %}

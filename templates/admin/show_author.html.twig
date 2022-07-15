@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>{{ author.title }}</title>
+{% endblock %}
+
+{% block main %}
+
+    {% if author %}
+
+        <h1>{{ author.firstName }}</h1>
+        <p>{{ author.lastName }}</p>
+        <p>{{ author.birthDate }}</p>
+        <p>{{ author.deathDate }}</p>
+        <p>{{ author.books }}</p>
+
+    {% endif %}
+
+{% endblock %}

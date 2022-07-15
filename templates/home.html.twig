@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+        {% for book in lastBooks %}
+
+            {% if book.isPublished %}
+                    <h1>{{ book.title }}</h1>
+                    <a href="{{ path('admin_book', {'id': book.id }) }}">Clique j't'ai dit</a>
+            {% endif %}
+
+        {% endfor %}
+{% endblock %}
