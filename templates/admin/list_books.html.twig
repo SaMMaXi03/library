@@ -10,9 +10,19 @@
     {% for book in books %}
 
             <h1>{{ book.title }}</h1>
-                <a href="{{ path('admin_book', {'id': book.id }) }}">see the book</a>
-                <a href="{{ path('admin_update_book', {'id': book.id }) }}">Edit the book</a>
-                <a href="{{ path('admin_delete_book', {'id': book.id }) }}">delete this book</a>
-        {% endfor %}
 
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <a href="{{ path('admin_book', {'id': book.id }) }}" class="btn btn-primary">see the book</a>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                    <a class="dropdown-item" href="{{ path('admin_update_book', {'id': book.id }) }}">Edit the book</a>
+                    <a class="dropdown-item" href="{{ path('admin_delete_book', {'id': book.id }) }}">delete this book</a>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    <br>
+    <br>
 {% endblock %}
