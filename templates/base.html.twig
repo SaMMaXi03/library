@@ -32,8 +32,10 @@
                         <a class="nav-link" href="{{ path('admin_list_authors') }}">Authors</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="text" placeholder="Search">
+                <form class="d-flex" method="GET" action="{{ path('search_bar') }}">
+                    <label>
+                        <input class="form-control me-sm-2" type="text" name="search">
+                    </label>
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
@@ -51,6 +53,7 @@
     {% block main %}
         <main>
             <img class="backimg" src="https://static.pratique.fr/images/unsized/co/comment-ranger-sa-bibliotheque-istock-com-clu-228-1643820312.jpg" height="100%" width="100%">
+            <h1 class="welcome">Welcome to the comic book dungeon</h1>
         </main>
     {% endblock %}
 

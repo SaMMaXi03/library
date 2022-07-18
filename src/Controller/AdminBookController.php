@@ -40,7 +40,6 @@ class AdminBookController extends AbstractController
     }
 
 
-
     /**
      * @Route("/admin/insert-book", name="admin_insert_book")
      */
@@ -131,26 +130,6 @@ class AdminBookController extends AbstractController
         // le résultat de la méthode createView de la variable $form
         return $this->render("admin/update_book.html.twig", [
             'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/admin/book/search", name="admin_search_books")
-     */
-    public function searchBooks(Request $request, BookRepository $bookRepository)
-    {
-        // je récupère les valeurs du formulaire dans ma route
-        $search = $request->query->get('search');
-
-        // je vais créer une méthode dans l'ArticleRepository
-        // qui trouve un article en fonction d'un mot dans son titre ou son contenu
-        $books = $bookRepository->searchByWord($search);
-
-        // je renvoie un fichier twig en lui passant les articles trouvé
-        // et je les affiche
-
-        return $this->render('admin/search_books.html.twig', [
-            'books' => $books
         ]);
     }
 }

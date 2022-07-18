@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Entity\Author;
 use App\Form\AuthorType;
 use App\Repository\AuthorRepository;
@@ -16,7 +17,7 @@ class AdminAuthorController extends AbstractController
     /**
      * @Route("/admin/insert-author", name="admin_insert_author")
      */
-    public function insertAuthors(EntityManagerInterface $entityManager, Request $request)
+    public function insertAuthors(EntityManagerInterface $entityManager, Request $request): Response
     {
         $author = new Author();
 
@@ -39,7 +40,7 @@ class AdminAuthorController extends AbstractController
     /**
      * @Route("admin/authors", name="admin_list_authors")
      */
-    public function listAuthors(AuthorRepository $authorRepository)
+    public function listAuthors(AuthorRepository $authorRepository): Response
     {
         $authors = $authorRepository->findAll();
 
@@ -51,7 +52,7 @@ class AdminAuthorController extends AbstractController
     /**
      * @Route("admin/authors/{id}", name="admin_show_author")
      */
-    public function showAuthor($id, AuthorRepository $authorRepository)
+    public function showAuthor($id, AuthorRepository $authorRepository): Response
     {
         $author = $authorRepository->find($id);
 
@@ -63,7 +64,7 @@ class AdminAuthorController extends AbstractController
     /**
      * @Route("/admin/author/delete/{id}", name="admin_delete_author")
      */
-    public function deleteAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager)
+    public function deleteAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         $author = $authorRepository->find($id);
 
@@ -71,9 +72,9 @@ class AdminAuthorController extends AbstractController
             $entityManager->remove($author);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Vous avez bien supprimé la category !');
+            $this->addFlash('success', 'Author is delete');
         } else {
-            $this->addFlash('error', 'Category introuvable ! ');
+            $this->addFlash('error', 'Author lost ');
         }
         return $this->redirectToRoute('admin_list_authors');
     }
@@ -81,7 +82,7 @@ class AdminAuthorController extends AbstractController
     /**
      * @Route("/admin/authors/update/{id}", name="admin_update_author")
      */
-    public function updateAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager, Request $request)
+    public function updateAuthor($id, AuthorRepository $authorRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $author = $authorRepository->find($id);
 

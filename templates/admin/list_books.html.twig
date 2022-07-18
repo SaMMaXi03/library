@@ -2,10 +2,13 @@
 
 
 {% block main %}
+    <br>
 
     <section>
-        <a href="{{ path('admin_insert_book') }}">add a book</a>
+        <a type="button" class="btn btn-outline-primary" href="{{ path('admin_insert_author') }}">add author</a>
     </section>
+    <br>
+    <br>
 
     {% for book in books %}
 

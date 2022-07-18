@@ -9,6 +9,15 @@ footer {
     background-size: cover;
 }
 
+.welcome {
+    position: relative;
+    color: white;
+    padding: 10%;
+    font-size: 100px;
+    text-align: center;
+    text-shadow: 5px 5px 5px black;
+}
+
 @media screen and (max-width: 640px) {
 
     .books {
