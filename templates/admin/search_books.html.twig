@@ -2,13 +2,6 @@
 
 
 {% block main %}
-    <br>
-
-    <section>
-        <a type="button" class="btn btn-outline-primary" href="{{ path('admin_insert_author') }}">add author</a>
-    </section>
-    <br>
-    <br>
 
     {% for book in books %}
 
@@ -21,6 +14,23 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
                     <a class="dropdown-item" href="{{ path('admin_update_book', {'id': book.id }) }}">Edit the book</a>
                     <a class="dropdown-item" href="{{ path('admin_delete_book', {'id': book.id }) }}">delete this book</a>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {% for author in authors %}
+
+        <h1>{{ author.firstName }}</h1>
+
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <a href="{{ path('admin_list_authors', {'id': author.id }) }}" class="btn btn-primary">see author</a>
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                    <a class="dropdown-item" href="{{ path('admin_update_author', {'id': author.id }) }}">Edit this author</a>
+                    <a class="dropdown-item" href="{{ path('admin_delete_author', {'id': author.id }) }}">delete this author</a>
                 </div>
             </div>
         </div>

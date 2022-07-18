@@ -16,7 +16,12 @@ footer {
     font-size: 100px;
     text-align: center;
     text-shadow: 5px 5px 5px black;
+    cursor: default;
+    flex-wrap: wrap;
+    display: flex;
 }
+
+
 
 @media screen and (max-width: 640px) {
 
