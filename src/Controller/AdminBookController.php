@@ -45,36 +45,21 @@ class AdminBookController extends AbstractController
      */
     public function insertBook(EntityManagerInterface $entityManager, Request $request)
     {
-        // je créé une instance de la classe d'entité Article
-        // dans le but de créer un article en BDD
+
         $book = new Book();
 
-        // j'ai utilisé en ligne de commandes "php bin/console make:form"
-        // pour que Symfony me créé une classe qui contiendra "le plan", "le patron"
-        // du formulaire pour créer les articles. C'est la classe ArticleType
-        // j'utilise la méthode $this->createForm pour créer un formulaire
-        // en utilisant le plan du formulaire (ArticleType) et une instance d'Article
         $form = $this->createForm(BookType::class, $book);
 
-        // On "donne" à la variable qui contient le formulaire
-        // une instance de la classe  Request
-        // pour que le formulaire puisse récupérer toutes les données
-        // des inputs et faire les setters sur $article automatiquement
         $form->handleRequest($request);
 
-        // si le formulaire a été posté et que les données sont valides (valeurs
-        // des inputs correspondent à ce qui est attendu en bdd pour la table article)
         if ($form->isSubmitted() && $form->isValid()) {
-            // alors on enregistre l'article en BDD
+
             $entityManager->persist($book);
             $entityManager->flush();
 
             $this->addFlash('success', 'book add !');
         }
 
-        // j'affiche mon twig, en lui passant une variable
-        // form, qui contient la vue du formulaire, c'est à dire,
-        // le résultat de la méthode createView de la variable $form
         return $this->render("admin/insert_book.html.twig", [
             'form' => $form->createView()
         ]);
@@ -109,25 +94,16 @@ class AdminBookController extends AbstractController
 
         $form = $this->createForm(BookType::class, $book);
 
-        // On "donne" à la variable qui contient le formulaire
-        // une instance de la classe  Request
-        // pour que le formulaire puisse récupérer toutes les données
-        // des inputs et faire les setters sur $article automatiquement
         $form->handleRequest($request);
 
-        // si le formulaire a été posté et que les données sont valides (valeurs
-        // des inputs correspondent à ce qui est attendu en bdd pour la table article)
         if ($form->isSubmitted() && $form->isValid()) {
-            // alors on enregistre l'article en BDD
+
             $entityManager->persist($book);
             $entityManager->flush();
 
             $this->addFlash('success', 'Registered book!');
         }
 
-        // j'affiche mon twig, en lui passant une variable
-        // form, qui contient la vue du formulaire, c'est à dire,
-        // le résultat de la méthode createView de la variable $form
         return $this->render("admin/update_book.html.twig", [
             'form' => $form->createView()
         ]);
