@@ -16,8 +16,8 @@ class AuthorType extends AbstractType
         $builder
             ->add('firstName')
             ->add('lastName')
-            ->add('birthDate')
-            ->add('deathDate')
+            ->add('birthDate', DateType::class, ['widget' => 'single_text'])
+            ->add('deathDate', DateType::class, ['widget' => 'single_text'])
             ->add('books')
             ->add('submit', SubmitType::class)
         ;

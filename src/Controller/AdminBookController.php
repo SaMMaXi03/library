@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminBookController extends AbstractController
 {
@@ -41,27 +42,39 @@ class AdminBookController extends AbstractController
 
 
     /**
-     * @Route("/admin/insert-book", name="admin_insert_book")
+     * @Route("admin/insert_book", name="admin_insert_book")
      */
-    public function insertBook(EntityManagerInterface $entityManager, Request $request)
+    public function insertBook(EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response
     {
-
         $book = new Book();
 
-        $form = $this->createForm(BookType::class, $book);
+        $form = $this->createForm(BookType::class,$book);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image =$form->get('image')->getData();
+
+            $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $safeFilename = $slugger->slug($originalFilename);
+
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+
+            $image->move(
+                $this->getParameter('images_directory'),
+                $newFilename
+            );
+            $book->setImage($newFilename);
 
             $entityManager->persist($book);
             $entityManager->flush();
 
-            $this->addFlash('success', 'book add !');
+            $this->addFlash('success','Livre enregistré');
         }
 
         return $this->render("admin/insert_book.html.twig", [
-            'form' => $form->createView()
+            'form'=> $form->createView()
         ]);
     }
 
@@ -88,24 +101,37 @@ class AdminBookController extends AbstractController
     /**
      * @Route("/admin/books/update/{id}", name="admin_update_book")
      */
-    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager, Request $request)
+    public function updateBook($id, BookRepository $bookRepository, EntityManagerInterface $entityManager, Request $request, SluggerInterface $slugger): Response
     {
         $book = $bookRepository->find($id);
 
-        $form = $this->createForm(BookType::class, $book);
+        $form = $this->createForm(BookType::class,$book);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+
+            $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
+            $safeFilename = $slugger->slug($originalFilename);
+
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
+
+            $image->move(
+                $this->getParameter('images_directory'),
+                $newFilename
+            );
+            $book->setImage($newFilename);
 
             $entityManager->persist($book);
             $entityManager->flush();
-
-            $this->addFlash('success', 'Registered book!');
+            $this->addFlash('success', 'Vous avez bien modifié votre livre');
         }
 
         return $this->render("admin/update_book.html.twig", [
-            'form' => $form->createView()
+            'form'=> $form->createView(),
+            'book'=> $book
         ]);
     }
 }

@@ -3,7 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\AuthorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 class Author
@@ -25,8 +29,13 @@ class Author
     #[ORM\Column(length: 255)]
     private ?string $deathDate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $books = null;
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
+    private Collection $books;
+
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -81,15 +90,34 @@ class Author
         return $this;
     }
 
-    public function getBooks(): ?string
+    /**
+     * @return Collection<int, Book>
+     */
+    public function getBooks(): Collection
     {
         return $this->books;
     }
 
-    public function setBooks(string $books): self
+    public function addBook(Book $book): self
     {
-        $this->books = $books;
+        if (!$this->books->contains($book)) {
+            $this->books[] = $book;
+            $book->setAuthor($this);
+        }
 
         return $this;
     }
+
+    public function removeBook(Book $book): self
+    {
+        if ($this->books->removeElement($book)) {
+            // set the owning side to null (unless already changed)
+            if ($book->getAuthor() === $this) {
+                $book->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+    
 }

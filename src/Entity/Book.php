@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
@@ -19,11 +20,14 @@ class Book
     #[ORM\Column(length: 255)]
     private ?string $nbPages = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $author = null;
-
     #[ORM\Column]
-    private ?\DateTimeImmutable $publishedAt = null;
+    private ?\DateTime $publishedAt = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image;
+
+    #[ORM\ManyToOne(inversedBy: 'books')]
+    private ?Author $author = null;
 
     public function getId(): ?int
     {
@@ -54,27 +58,45 @@ class Book
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getPublishedAt(): ?\DateTime
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(\DateTime $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage(): mixed
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
+
+    public function getAuthor(): ?Author
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(?Author $author): self
     {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTimeImmutable
-    {
-        return $this->publishedAt;
-    }
 
-    public function setPublishedAt(\DateTimeImmutable $publishedAt): self
-    {
-        $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
 }
