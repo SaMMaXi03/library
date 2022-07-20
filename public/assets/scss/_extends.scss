@@ -21,6 +21,17 @@ footer {
   display: flex;
 }
 
+.block {
+  display: grid;
+  justify-content: center;
+}
+
+.books {
+  display: grid;
+  justify-content: center;
+  text-align: center;
+}
+
 
 
 @media screen and (max-width: 640px) {

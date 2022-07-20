@@ -3,29 +3,31 @@
 
 {% block main %}
     <br>
+    <div class="block">
+        <section>
+            <a type="button" class="btn btn-outline-primary" href="{{ path('admin_insert_book') }}">add book</a>
+        </section>
+    </div>
+        <br>
+        <br>
+        <div class="books">
+            {% for book in books %}
 
-    <section>
-        <a type="button" class="btn btn-outline-primary" href="{{ path('admin_insert_book') }}">add book</a>
-    </section>
-    <br>
-    <br>
-
-    {% for book in books %}
-
-            <h1>{{ book.title }}</h1>
-        <img class="img-article" src="{{ asset('uploads/images/' ~ book.image) }}" alt=""{{ book.title }}>
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <a href="{{ path('admin_book', {'id': book.id }) }}" class="btn btn-primary">see the book</a>
-            <div class="btn-group" role="group">
-                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
-                    <a class="dropdown-item" href="{{ path('admin_update_book', {'id': book.id }) }}">Edit the book</a>
-                    <a class="dropdown-item" href="{{ path('admin_delete_book', {'id': book.id }) }}">delete this book</a>
+                    <h1>{{ book.title }}</h1>
+                <img class="img-article" src="{{ asset('uploads/images/' ~ book.image) }}" alt=""{{ book.title }}>
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <a href="{{ path('admin_book', {'id': book.id }) }}" class="btn btn-primary">see the book</a>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
+                            <a class="dropdown-item" href="{{ path('admin_update_book', {'id': book.id }) }}">Edit the book</a>
+                            <a class="dropdown-item" href="{{ path('admin_delete_book', {'id': book.id }) }}">delete this book</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        {% endfor %}
-    <br>
-    <br>
+                {% endfor %}
+        </div>
+        <br>
+        <br>
 {% endblock %}
