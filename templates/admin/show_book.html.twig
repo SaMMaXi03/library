@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}
     <title>{{ book.title }}</title>
@@ -10,7 +10,7 @@
         <h1>{{ book.title }}</h1>
         <p>{{ book.nbPages }}</p>
         <p>{{ book.author }}</p>
-        <p>Publié le {{ book.publishedAt | date('d-m-y') }}</p>
+        <p>Publié le {{ book.publishedAt ? book.publishedAt|date('Y-m-d'): '' }}</p>
     {% endif %}
 
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'front/base.html.twig' %}
+
+{% block main %}
+        {% for book in lastBooks %}
+
+                    <h1>{{ book.title }}</h1>
+                    <a href="{{ path('book_show', {'id': book.id }) }}">Click here</a>
+
+        {% endfor %}
+{% endblock %}

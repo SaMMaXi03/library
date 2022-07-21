@@ -20,7 +20,12 @@ class BookType extends AbstractType
             ->add('title')
             ->add('nbPages')
             ->add('author', EntityType::class,['class'=> Author::class, 'choice_label'=>'lastName'])
-            ->add('publishedAt',DateType::class, ['widget' => 'single_text'])
+            ->add('publishedAt',DateType::Class, array(
+                'widget' => 'single_text',
+                'years' => range(date('Y'), date('Y')-300),
+                'months' => range(date('m'), 12),
+                'days' => range(date('d'), 31),
+            ))
             ->add('submit', SubmitType::class)
             ->add('image',FileType::class, [
                 'mapped' => false

@@ -1,4 +1,4 @@
-{% extends 'admin/base.html.twig' %}
+{% extends 'front/base.html.twig' %}
 
 {% block title %}
     <title>{{ author.title }}</title>
@@ -12,9 +12,8 @@
         <p>{{ author.lastName }}</p>
         <p>{{ author.birthDate ? author.birthDate|date('Y-m-d'): '' }}</p>
         <p>{{ author.deathDate ? author.deathDate|date('Y-m-d'): '' }}</p>
-
         {% for book in author.books %}
-        <p>{{ book.title }}</p>
+            <p>{{ book.title }}</p>
         {% endfor %}
 
     {% endif %}

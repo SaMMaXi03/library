@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block main %}
     {#
@@ -29,12 +29,6 @@
     {{ form_label(form.deathDate, 'DeathDate', {'label_attr': {'class': 'form-label'}}) }}
     {{ form_widget(form.deathDate, {'attr': {'class': 'form-control'}}) }}
     {{ form_errors(form.deathDate) }}
-    <br>
-    <br>
-
-    {{ form_label(form.books, 'Books', {'label_attr': {'class': 'form-label'}}) }}
-    {{ form_widget(form.books, {'attr': {'class': 'form-control'}}) }}
-    {{ form_errors(form.books) }}
     <br>
     <br>
 

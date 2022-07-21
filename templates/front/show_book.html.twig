@@ -1,0 +1,18 @@
+{% extends 'front/base.html.twig' %}
+
+{% block title %}
+    <title>{{ book.title }}</title>
+{% endblock %}
+
+{% block main %}
+
+    {% if book %}
+        <h1>{{ book.title }}</h1>
+        <p>{{ book.nbPages }} pages</p>
+        {% if book.author %}
+            <p> {{book.author.firstName}} </p>
+        {% endif %}
+        <p>Publié le {{ book.publishedAt | date('d-m-y') }}</p>
+    {% endif %}
+
+{% endblock %}

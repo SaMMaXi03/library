@@ -58,18 +58,6 @@ class Book
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTime
-    {
-        return $this->publishedAt;
-    }
-
-    public function setPublishedAt(\DateTime $publishedAt): self
-    {
-        $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
-
     /**
      * @return mixed
      */
@@ -96,6 +84,22 @@ class Book
         $this->author = $author;
 
         return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getPublishedAt(): ?\DateTime
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @param \DateTime|null $publishedAt
+     */
+    public function setPublishedAt(?\DateTime $publishedAt): void
+    {
+        $this->publishedAt = $publishedAt;
     }
 
 

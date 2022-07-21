@@ -1,0 +1,19 @@
+{% extends 'front/base.html.twig' %}
+
+
+{% block main %}
+    <br>
+    <div class="books">
+        {% for book in books %}
+
+            <h1>{{ book.title }}</h1>
+            <img class="img-article" src="{{ asset('uploads/images/' ~ book.image) }}" alt=""{{ book.title }}>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <a href="{{ path('book_show', {'id': book.id }) }}" class="btn btn-primary">see the book</a>
+            </div>
+
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+{% endblock %}

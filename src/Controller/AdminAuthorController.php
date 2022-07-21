@@ -29,7 +29,7 @@ class AdminAuthorController extends AbstractController
             $entityManager->persist($author);
             $entityManager->flush();
 
-            $this->addFlash('succes','author saved !');
+            $this->addFlash('success','author saved !');
         }
 
         return $this->render('admin/insert_author.html.twig', [

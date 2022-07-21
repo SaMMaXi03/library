@@ -7,12 +7,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PageController extends AbstractController
 {
-/**
- * @Route("/", name="home");
- */
 
-    public function home()
+    /**
+     * @Route("/", name="front_home");
+     */
+
+    public function frontHome(): \Symfony\Component\HttpFoundation\Response
     {
-        return $this->render('base.html.twig');
+        return $this->render('front/base.html.twig');
     }
+
+    /**
+     * @Route("/admin", name="admin_home");
+     */
+
+    public function adminHome(): \Symfony\Component\HttpFoundation\Response
+    {
+        return $this->render('admin/base.html.twig');
+    }
+
 }

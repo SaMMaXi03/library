@@ -23,11 +23,11 @@ class Author
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $birthDate = null;
+    #[ORM\Column]
+    private ?\DateTime $birthDate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $deathDate = null;
+    #[ORM\Column]
+    private ?\DateTime $deathDate = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
     private Collection $books;
@@ -66,30 +66,6 @@ class Author
         return $this;
     }
 
-    public function getBirthDate(): ?string
-    {
-        return $this->birthDate;
-    }
-
-    public function setBirthDate(string $birthDate): self
-    {
-        $this->birthDate = $birthDate;
-
-        return $this;
-    }
-
-    public function getDeathDate(): ?string
-    {
-        return $this->deathDate;
-    }
-
-    public function setDeathDate(string $deathDate): self
-    {
-        $this->deathDate = $deathDate;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Book>
      */
@@ -119,5 +95,39 @@ class Author
 
         return $this;
     }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getBirthDate(): ?\DateTime
+    {
+        return $this->birthDate;
+    }
+
+    /**
+     * @param \DateTime|null $birthDate
+     */
+    public function setBirthDate(?\DateTime $birthDate): void
+    {
+        $this->birthDate = $birthDate;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getDeathDate(): ?\DateTime
+    {
+        return $this->deathDate;
+    }
+
+    /**
+     * @param \DateTime|null $deathDate
+     */
+    public function setDeathDate(?\DateTime $deathDate): void
+    {
+        $this->deathDate = $deathDate;
+    }
+
+
     
 }

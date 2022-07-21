@@ -1,0 +1,18 @@
+{% extends 'front/base.html.twig' %}
+
+
+{% block main %}
+    <br>
+    <div class="books">
+        {% for author in authors %}
+
+            <h1>{{ author.firstName }}</h1>
+
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <a href="{{ path('author_show', {'id': author.id }) }}" class="btn btn-primary">see this author</a>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+{% endblock %}
